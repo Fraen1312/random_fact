@@ -3,26 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Факты о мире</title>
+    <title>Факты о Земле</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-image: url('https://i.pinimg.com/originals/76/05/fa/7605fa3664ab4473dab1c745aeec6552.jpg');
+            background-image: url('ваш_фон.jpg'); /* Замените на путь к вашей картинке */
             background-size: cover;
             color: white;
-            display: flex;
-            padding: 20px;
-        }
-        #sidebar {
-            width: 200px;
-            background-color: rgba(0, 0, 0, 0.7);
-            padding: 15px;
-            border-radius: 5px;
-            margin-right: 20px;
-        }
-        #content {
-            flex-grow: 1;
             text-align: center;
+            padding: 50px;
+        }
+        #fact {
+            margin: 20px 0;
+            font-size: 24px;
         }
         button {
             padding: 10px 20px;
@@ -32,7 +25,6 @@
             color: white;
             border: none;
             border-radius: 5px;
-            margin-top: 10px;
         }
         button:hover {
             background-color: rgba(255, 255, 255, 0.3);
@@ -41,49 +33,28 @@
 </head>
 <body>
 
-    <div id="sidebar">
-        <h2>Темы</h2>
-        <button onclick="setTopic('space')">Факты про космос</button>
-        <button onclick="setTopic('russia')">Факты про Россию</button>
-        <button onclick="setTopic('india')">Факты про Индию</button>
-    </div>
-
-    <div id="content">
-        <h1 id="title">Факты о мире</h1>
-        <div id="fact">Нажмите на кнопку, чтобы увидеть факт!</div>
-        <button onclick="generateFact()">Сгенерировать факт</button>
-    </div>
+    <h1>Факты о Земле</h1>
+    <div id="fact">Нажмите на кнопку, чтобы увидеть факт!</div>
+    <button onclick="generateFact()">Сгенерировать факт</button>
 
     <script>
-        const topics = {
-            space: [
-                "Солнце составляет 99.86% всей массы Солнечной системы.",
-                "В космосе нет звуков, так как там нет воздуха.",
-                // добавьте еще 48 фактов о космосе
-            ],
-            russia: [
-                "Россия - самая большая страна в мире.",
-                "В России более 1000 озер.",
-                // добавьте еще 48 фактов о России
-            ],
-            india: [
-                "Индия - вторая по населению страна в мире.",
-                "Тадж-Махал - одно из семи чудес света, расположенное в Индии.",
-                // добавьте еще 48 фактов об Индии
-            ]
-        };
-
-        let currentTopic = 'space';
-
-        function setTopic(topic) {
-            currentTopic = topic;
-            document.getElementById('title').innerText = `Факты про ${topic === 'space' ? 'космос' : topic === 'russia' ? 'Россию' : 'Индию'}`;
-            generateFact(); // Генерируем новый факт при смене темы
-        }
+        const facts = [
+            "Земля - единственная планета, на которой есть известная жизнь.",
+            "Около 70% поверхности Земли покрыто водой.",
+            "Земля вращается вокруг своей оси со скоростью 1670 км/ч.",
+            "На Земле более 7 миллиардов человек.",
+            "Самая высокая точка на Земле - гора Эверест (8848 м).",
+            "Самая глубокая точка - Марианская впадина (10994 м).",
+            "Земля - третья планета от Солнца.",
+            "Земля имеет один естественный спутник - Луну.",
+            "Климат Земли разнообразен: от тропиков до полярных районов.",
+            "Земля образовалась примерно 4.5 миллиарда лет назад.",
+            // Добавьте больше фактов по желанию
+        ];
 
         function generateFact() {
-            const randomIndex = Math.floor(Math.random() * topics[currentTopic].length);
-            document.getElementById('fact').innerText = topics[currentTopic][randomIndex];
+            const randomIndex = Math.floor(Math.random() * facts.length);
+            document.getElementById('fact').innerText = facts[randomIndex];
         }
     </script>
 
