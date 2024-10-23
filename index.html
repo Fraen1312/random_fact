@@ -48,6 +48,21 @@
         button:hover {
             background-color: rgba(255, 255, 255, 0.3);
         }
+        .panel {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #333;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            z-index: 1;
+        }
+        .content {
+            margin-top: 50px; /* Отступ для панели */
+            text-align: center;
+        }
     </style>
 </head>
 <body>
@@ -64,10 +79,17 @@
         <button id="changeWallpaper">Сменить обои</button>
     </div>
 
+    <div class="panel">
+        <button onclick="spinWheel()">Колесо фортуны</button>
+        <button onclick="generateNumber()">Генератор чисел</button>
+        <button onclick="generatePassword()">Генератор паролей</button>
+    </div>
+
     <div id="content">
         <h1 id="title">Факты о мире</h1>
         <div id="fact">Нажмите на кнопку, чтобы увидеть факт!</div>
         <button onclick="generateFact()">Сгенерировать факт</button>
+        <h2 id="result"></h2>
     </div>
 
     <script>
@@ -79,8 +101,7 @@
             'https://i.pinimg.com/originals/22/8d/22/228d229e4a8125c43951ed44bf0da7eb.jpg',
         ];
 
-        const topics = {
-            earth: [
+        earth: [
                 "Земля — единственная планета, на которой известна жизнь.",
             "Около 71% поверхности Земли покрыто водой.",
             "Вокруг Земли вращается один естественный спутник — Луна.",
@@ -310,8 +331,28 @@
             const randomIndex = Math.floor(Math.random() * wallpapers.length);
             document.body.style.backgroundImage = `url(${wallpapers[randomIndex]})`;
         });
+
+        function spinWheel() {
+            const options = ["Победа!", "Поражение!", "Еще раз!", "Бонус!"];
+            const randomOption = options[Math.floor(Math.random() * options.length)];
+            document.getElementById("result").innerText = `Результат: ${randomOption}`;
+        }
+
+        function generateNumber() {
+            const randomNumber = Math.floor(Math.random() * 100) + 1; // Генерация числа от 1 до 100
+            document.getElementById("result").innerText = `Случайное число: ${randomNumber}`;
+        }
+
+        function generatePassword() {
+            const length = 12;
+            const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+";
+            let password = "";
+            for (let i = 0; i < length; i++) {
+                password += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            document.getElementById("result").innerText = `Сгенерированный пароль: ${password}`;
+        }
     </script>
 
 </body>
 </html>
-
