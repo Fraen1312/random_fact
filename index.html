@@ -48,6 +48,9 @@
         button:hover {
             background-color: rgba(255, 255, 255, 0.3);
         }
+        #numberCount {
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
@@ -61,13 +64,26 @@
         <button onclick="setTopic('steam')">Факты про Steam</button>
         <button onclick="setTopic('game')">Факты об играх</button>
         <button onclick="setTopic('musk')">Факты про Илона Маска</button>
-        <button id="changeWallpaper">Сменить обои</button>
+        <button onclick="generateNumbers()">Генератор чисел</button>
+        <div id="numberCount">
+            <label for="countSlider">Количество чисел:</label>
+            <input type="range" id="countSlider" min="1" max="10" value="1" oninput="updateCountLabel()">
+            <span id="countLabel">1</span>
+        </div>
+        <div>
+            <label for="customNumbers">Введите числа (через запятую):</label>
+            <input type="text" id="customNumbers" placeholder="1, 2, 3">
+        </div>
+        <button onclick="generateCustomNumbers()">Сгенерировать собственные числа</button>
+        <button onclick="generatePassword()">Генератор паролей</button>
     </div>
 
     <div id="content">
         <h1 id="title">Факты о мире</h1>
         <div id="fact">Нажмите на кнопку, чтобы увидеть факт!</div>
         <button onclick="generateFact()">Сгенерировать факт</button>
+        <div id="numbersOutput"></div>
+        <div id="passwordOutput"></div>
     </div>
 
     <script>
@@ -118,6 +134,7 @@
         };
 
         let currentTopic = 'earth';
+        let numberCount = 1;
 
         function setTopic(topic) {
             currentTopic = topic;
@@ -128,6 +145,35 @@
         function generateFact() {
             const randomIndex = Math.floor(Math.random() * topics[currentTopic].length);
             document.getElementById('fact').innerText = topics[currentTopic][randomIndex];
+        }
+
+        function updateCountLabel() {
+            numberCount = document.getElementById('countSlider').value;
+            document.getElementById('countLabel').innerText = numberCount;
+        }
+
+        function generateNumbers() {
+            const output = [];
+            for (let i = 0; i < numberCount; i++) {
+                output.push(Math.floor(Math.random() * 100)); // Генерация случайных чисел от 0 до 99
+            }
+            document.getElementById('numbersOutput').innerText = `Сгенерированные числа: ${output.join(', ')}`;
+        }
+
+        function generateCustomNumbers() {
+            const customInput = document.getElementById('customNumbers').value;
+            const customNumbers = customInput.split(',').map(num => num.trim()).filter(num => !isNaN(num)).slice(0, numberCount);
+            document.getElementById('numbersOutput').innerText = `Сгенерированные числа: ${customNumbers.join(', ')}`;
+        }
+
+        function generatePassword() {
+            const length = 12; // Длина пароля
+            const chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+';
+            let password = '';
+            for (let i = 0; i < length; i++) {
+                password += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            document.getElementById('passwordOutput').innerText = `Сгенерированный пароль: ${password}`;
         }
 
         document.getElementById('changeWallpaper').addEventListener('click', () => {
