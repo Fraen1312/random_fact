@@ -15,27 +15,18 @@
             position: relative;
             transition: background-image 0.5s;
         }
-        #sidebar, #top-panel {
+        #sidebar {
             width: 200px;
             background-color: rgba(0, 0, 0, 0.8);
             padding: 15px;
             border-radius: 5px;
-            position: absolute;
-            transition: left 0.3s ease;
-        }
-        #sidebar {
-            left: -220px; /* Скрыто за пределами экрана */
             margin-right: 20px;
+            position: absolute;
+            left: -220px; /* Скрыто за пределами экрана */
+            transition: left 0.3s ease;
         }
         #sidebar:hover {
             left: 0; /* Выдвигается при наведении */
-        }
-        #top-panel {
-            top: -220px; /* Скрыто за пределами экрана */
-            width: calc(100% - 20px);
-        }
-        #top-panel:hover {
-            top: 0; /* Выдвигается при наведении */
         }
         #content {
             flex-grow: 1;
@@ -60,13 +51,6 @@
     </style>
 </head>
 <body>
-
-    <div id="top-panel">
-        <h2>Инструменты</h2>
-        <button onclick="spinWheel()">Колесо фортуны</button>
-        <button onclick="generateNumber()">Генератор чисел</button>
-        <button onclick="generatePassword()">Генератор паролей</button>
-    </div>
 
     <div id="sidebar">
         <h2>Темы</h2>
@@ -96,6 +80,7 @@
         ];
 
         const topics = {
+            earth: [
                 "Земля — единственная планета, на которой известна жизнь.",
             "Около 71% поверхности Земли покрыто водой.",
             "Вокруг Земли вращается один естественный спутник — Луна.",
@@ -312,7 +297,7 @@
 
         function setTopic(topic) {
             currentTopic = topic;
-            document.getElementById('title').innerText = `Факты про ${topic === 'earth' ? 'Землю' : topic === 'space' ? 'космос' : topic === 'russia' ? 'Россию' : topic === 'india' ? 'Индию' : topic === 'steam' ? 'Steam' : topic === 'game' ? 'игры' : 'Илона Маска'}`;
+            document.getElementById('title').innerText = Факты про ${topic === 'earth' ? 'Землю' : topic === 'space' ? 'космос' : topic === 'russia' ? 'Россию' : topic === 'india' ? 'Индию' : topic === 'steam' ? 'Steam' : topic === 'game' ? 'игры' : 'Илона Маска'};
             generateFact(); // Генерируем новый факт при смене темы
         }
 
@@ -323,28 +308,8 @@
 
         document.getElementById('changeWallpaper').addEventListener('click', () => {
             const randomIndex = Math.floor(Math.random() * wallpapers.length);
-            document.body.style.backgroundImage = `url(${wallpapers[randomIndex]})`;
+            document.body.style.backgroundImage = url(${wallpapers[randomIndex]});
         });
-
-        function generateNumber() {
-            const randomNum = Math.floor(Math.random() * 100) + 1; // Генерируем случайное число от 1 до 100
-            alert(`Случайное число: ${randomNum}`);
-        }
-
-        function generatePassword() {
-            const chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()";
-            let password = "";
-            for (let i = 0; i < 12; i++) { // Генерируем пароль длиной 12 символов
-                password += chars.charAt(Math.floor(Math.random() * chars.length));
-            }
-            alert(`Сгенерированный пароль: ${password}`);
-        }
-
-        function spinWheel() {
-            const result = Math.floor(Math.random() * 10) + 1; // Результат колеса фортуны от 1 до 10
-            alert(`Результат колеса фортуны: ${result}`);
-        }
-
     </script>
 
 </body>
