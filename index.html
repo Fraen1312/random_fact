@@ -15,18 +15,27 @@
             position: relative;
             transition: background-image 0.5s;
         }
-        #sidebar {
+        #sidebar, #top-panel {
             width: 200px;
             background-color: rgba(0, 0, 0, 0.8);
             padding: 15px;
             border-radius: 5px;
-            margin-right: 20px;
             position: absolute;
-            left: -220px; /* Скрыто за пределами экрана */
             transition: left 0.3s ease;
+        }
+        #sidebar {
+            left: -220px; /* Скрыто за пределами экрана */
+            margin-right: 20px;
         }
         #sidebar:hover {
             left: 0; /* Выдвигается при наведении */
+        }
+        #top-panel {
+            top: -220px; /* Скрыто за пределами экрана */
+            width: calc(100% - 20px);
+        }
+        #top-panel:hover {
+            top: 0; /* Выдвигается при наведении */
         }
         #content {
             flex-grow: 1;
@@ -48,24 +57,16 @@
         button:hover {
             background-color: rgba(255, 255, 255, 0.3);
         }
-        .panel {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            background-color: #333;
-            color: white;
-            padding: 10px;
-            text-align: center;
-            z-index: 1;
-        }
-        .content {
-            margin-top: 50px; /* Отступ для панели */
-            text-align: center;
-        }
     </style>
 </head>
 <body>
+
+    <div id="top-panel">
+        <h2>Инструменты</h2>
+        <button onclick="spinWheel()">Колесо фортуны</button>
+        <button onclick="generateNumber()">Генератор чисел</button>
+        <button onclick="generatePassword()">Генератор паролей</button>
+    </div>
 
     <div id="sidebar">
         <h2>Темы</h2>
@@ -79,17 +80,10 @@
         <button id="changeWallpaper">Сменить обои</button>
     </div>
 
-    <div class="panel">
-        <button onclick="spinWheel()">Колесо фортуны</button>
-        <button onclick="generateNumber()">Генератор чисел</button>
-        <button onclick="generatePassword()">Генератор паролей</button>
-    </div>
-
     <div id="content">
         <h1 id="title">Факты о мире</h1>
         <div id="fact">Нажмите на кнопку, чтобы увидеть факт!</div>
         <button onclick="generateFact()">Сгенерировать факт</button>
-        <h2 id="result"></h2>
     </div>
 
     <script>
@@ -101,7 +95,7 @@
             'https://i.pinimg.com/originals/22/8d/22/228d229e4a8125c43951ed44bf0da7eb.jpg',
         ];
 
-        earth: [
+        const topics = {
                 "Земля — единственная планета, на которой известна жизнь.",
             "Около 71% поверхности Земли покрыто водой.",
             "Вокруг Земли вращается один естественный спутник — Луна.",
@@ -312,6 +306,7 @@
                 "В 2020 году он стал самым богатым человеком в мире по версии Forbes.",
                 "Илон Маск мечтает колонизировать Марс, чтобы обеспечить выживание человечества.",
             ]
+        };
 
         let currentTopic = 'earth';
 
@@ -331,26 +326,25 @@
             document.body.style.backgroundImage = `url(${wallpapers[randomIndex]})`;
         });
 
-        function spinWheel() {
-            const options = ["Победа!", "Поражение!", "Еще раз!", "Бонус!"];
-            const randomOption = options[Math.floor(Math.random() * options.length)];
-            document.getElementById("result").innerText = `Результат: ${randomOption}`;
-        }
-
         function generateNumber() {
-            const randomNumber = Math.floor(Math.random() * 100) + 1; // Генерация числа от 1 до 100
-            document.getElementById("result").innerText = `Случайное число: ${randomNumber}`;
+            const randomNum = Math.floor(Math.random() * 100) + 1; // Генерируем случайное число от 1 до 100
+            alert(`Случайное число: ${randomNum}`);
         }
 
         function generatePassword() {
-            const length = 12;
-            const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+";
+            const chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()";
             let password = "";
-            for (let i = 0; i < length; i++) {
+            for (let i = 0; i < 12; i++) { // Генерируем пароль длиной 12 символов
                 password += chars.charAt(Math.floor(Math.random() * chars.length));
             }
-            document.getElementById("result").innerText = `Сгенерированный пароль: ${password}`;
+            alert(`Сгенерированный пароль: ${password}`);
         }
+
+        function spinWheel() {
+            const result = Math.floor(Math.random() * 10) + 1; // Результат колеса фортуны от 1 до 10
+            alert(`Результат колеса фортуны: ${result}`);
+        }
+
     </script>
 
 </body>
