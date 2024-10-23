@@ -48,6 +48,14 @@
         button:hover {
             background-color: rgba(255, 255, 255, 0.3);
         }
+        .output {
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 20px;
+            display: inline-block;
+            min-width: 200px;
+        }
         #numberCount {
             margin-top: 20px;
         }
@@ -82,8 +90,9 @@
         <h1 id="title">Факты о мире</h1>
         <div id="fact">Нажмите на кнопку, чтобы увидеть факт!</div>
         <button onclick="generateFact()">Сгенерировать факт</button>
-        <div id="numbersOutput"></div>
-        <div id="passwordOutput"></div>
+        
+        <div class="output" id="numbersOutput">Сгенерированные числа: <span id="generatedNumbers"></span></div>
+        <div class="output" id="passwordOutput">Сгенерированный пароль: <span id="generatedPassword"></span></div>
     </div>
 
     <script>
@@ -157,13 +166,13 @@
             for (let i = 0; i < numberCount; i++) {
                 output.push(Math.floor(Math.random() * 100)); // Генерация случайных чисел от 0 до 99
             }
-            document.getElementById('numbersOutput').innerText = `Сгенерированные числа: ${output.join(', ')}`;
+            document.getElementById('generatedNumbers').innerText = output.join(', ');
         }
 
         function generateCustomNumbers() {
             const customInput = document.getElementById('customNumbers').value;
             const customNumbers = customInput.split(',').map(num => num.trim()).filter(num => !isNaN(num)).slice(0, numberCount);
-            document.getElementById('numbersOutput').innerText = `Сгенерированные числа: ${customNumbers.join(', ')}`;
+            document.getElementById('generatedNumbers').innerText = customNumbers.join(', ');
         }
 
         function generatePassword() {
@@ -173,7 +182,7 @@
             for (let i = 0; i < length; i++) {
                 password += chars.charAt(Math.floor(Math.random() * chars.length));
             }
-            document.getElementById('passwordOutput').innerText = `Сгенерированный пароль: ${password}`;
+            document.getElementById('generatedPassword').innerText = password;
         }
 
         document.getElementById('changeWallpaper').addEventListener('click', () => {
